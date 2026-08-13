@@ -1,4 +1,10 @@
 # BankSense AI
+## 🚀 Live Demo
+
+**Try the deployed application:**  
+https://ashwannii-20-banksense-ai-app-gpfk.tk.streamlit.app/
+
+The application allows users to enter customer information and receive a machine-learning-based high-risk probability estimate.
 
 ## Banking Customer Risk Analysis & Machine Learning
 
