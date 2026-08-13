@@ -4,9 +4,7 @@
 
 BankSense AI is an end-to-end banking analytics and machine learning project designed to identify customers who may be at higher financial risk.
 
-The project demonstrates a practical workflow covering data profiling, data cleaning, feature engineering, exploratory analysis, machine learning, model evaluation, and documentation.
-
-> **Project status:** Completed initial ML modelling and model selection. The selected model is not production-ready and requires further improvement and validation.
+The project demonstrates a practical workflow covering data profiling, data cleaning, feature engineering, exploratory analysis, machine learning, model evaluation, model selection, model persistence, prediction, and an interactive Streamlit application.
 
 ---
 
@@ -32,6 +30,9 @@ The project focuses particularly on the challenge of **imbalanced classification
 - Evaluate models using appropriate classification metrics
 - Pay particular attention to minority-class detection
 - Select the strongest candidate model based on F1 and ROC-AUC
+- Save the selected model for future predictions
+- Build a reusable prediction pipeline
+- Develop an interactive Streamlit application
 - Document model limitations and areas for future improvement
 
 ---
@@ -87,6 +88,12 @@ Model Comparison
 Final Model Selection
       ↓
 Post-Selection Validation
+      ↓
+Model Persistence
+      ↓
+Prediction Pipeline
+      ↓
+Streamlit Application
 ```
 
 ---
@@ -139,6 +146,63 @@ Because the target variable is highly imbalanced, accuracy was not used as the p
 
 ---
 
+## Model Persistence & Prediction
+
+The selected Tuned Random Forest model was saved as a reusable Joblib artifact:
+
+```text
+models/banksense_rf_tuned.joblib
+```
+
+The saved artifact contains the trained model and the feature-column structure required for prediction.
+
+The project also includes reusable preprocessing and prediction modules:
+
+- `src/banksense_ai/preprocessing.py`
+- `src/banksense_ai/predict.py`
+
+The prediction pipeline:
+
+1. Accepts customer information
+2. Creates the required tenure groups
+3. Applies categorical encoding
+4. Aligns the prediction features with the 42 training features
+5. Loads the saved Random Forest model
+6. Generates a high-risk classification
+7. Generates a high-risk probability
+
+---
+
+## Streamlit Application
+
+BankSense AI includes an interactive Streamlit application that allows users to enter customer information and obtain a model-based risk assessment.
+
+The application accepts:
+
+- Age
+- Annual income
+- Customer tenure
+- Gender
+- Country
+- Occupation
+- Employment status
+
+The application returns:
+
+- High-risk or low-risk prediction
+- High-risk probability
+
+Example:
+
+```text
+Prediction: Low Risk
+High-Risk Probability: 49.47%
+```
+
+> **Important:** The prediction is a machine-learning estimate and should not be treated as a definitive financial or credit decision.
+
+---
+
 ## Key Findings
 
 - The dataset contains a significant class imbalance, with high-risk customers representing **6.92%** of observations.
@@ -149,6 +213,10 @@ Because the target variable is highly imbalanced, accuracy was not used as the p
 - The training and test sets contain the same feature structure.
 - Train/test index validation confirmed **no overlapping observations**.
 - Post-selection validation confirmed that the final feature matrix contains **no missing values**.
+- The Tuned Random Forest achieved the strongest F1 Score and ROC-AUC among the evaluated models.
+- The model was successfully saved as a reusable Joblib artifact.
+- A reusable preprocessing and prediction pipeline was developed.
+- A Streamlit application was developed to provide an interactive interface for model predictions.
 - The results indicate that further modelling improvements are required before practical deployment.
 
 ---
@@ -162,6 +230,7 @@ The current model has several limitations:
 - The current feature set may not contain sufficient information to reliably distinguish high-risk customers.
 - Further validation is required before the model could be considered suitable for real-world banking decisions.
 - The project should not be interpreted as a production credit-risk system.
+- The Streamlit application is currently intended for local demonstration and has not been deployed as a production service.
 
 ---
 
@@ -179,6 +248,7 @@ Potential next steps include:
 - Feature importance and model interpretability analysis
 - Probability calibration
 - Evaluation on an independent external dataset
+- Deployment and hosting of the Streamlit application
 
 ---
 
@@ -188,6 +258,8 @@ Potential next steps include:
 - **Pandas**
 - **NumPy**
 - **Scikit-learn**
+- **Joblib**
+- **Streamlit**
 - **Jupyter Notebook**
 - **uv**
 - **Git & GitHub**
@@ -204,13 +276,19 @@ BankSense-AI/
 │   ├── processed/
 │   └── external/
 │
+├── models/
+│   └── banksense_rf_tuned.joblib
+│
 ├── notebooks/
 │   └── 01_banksense_risk_analysis.ipynb
 │
 ├── src/
 │   └── banksense_ai/
-│       └── __init__.py
+│       ├── __init__.py
+│       ├── predict.py
+│       └── preprocessing.py
 │
+├── app.py
 ├── .gitignore
 ├── .python-version
 ├── README.md
@@ -222,18 +300,22 @@ BankSense-AI/
 
 ## How to Run
 
-Clone the repository:
+### 1. Clone the Repository
 
 ```bash
 git clone https://github.com/Ashwannii-20/BankSense-AI.git
 cd BankSense-AI
 ```
 
-Install the project environment and dependencies using `uv`:
+### 2. Install Dependencies
+
+The project uses `uv` for environment and dependency management.
 
 ```bash
 uv sync
 ```
+
+### 3. Run the Jupyter Notebook
 
 Launch Jupyter:
 
@@ -247,14 +329,48 @@ Then open:
 notebooks/01_banksense_risk_analysis.ipynb
 ```
 
-> **Note:** The project dataset is not included in the public repository. The `.gitignore` configuration excludes CSV data files from version control.
+### 4. Launch the BankSense AI Application
+
+Start the Streamlit application:
+
+```bash
+uv run streamlit run app.py
+```
+
+The application will open locally at:
+
+```text
+http://localhost:8501
+```
 
 ---
 
-## Project Status
+## Project Scope
 
-**Completed:** Initial data profiling, data cleaning, feature engineering, exploratory analysis, model development, model evaluation, model comparison, final model selection, and post-selection validation.
+BankSense AI is an educational and portfolio project demonstrating an end-to-end machine learning workflow in a banking-risk context.
 
-**Current status:** The Tuned Random Forest is the strongest candidate among the evaluated models but is **not production-ready** due to limited predictive performance.
+The project demonstrates:
 
-**Next stage:** Improve predictive performance, validate robustness, and develop a deployable application.
+```text
+Raw Data
+   ↓
+Data Cleaning
+   ↓
+Feature Engineering
+   ↓
+Exploratory Analysis
+   ↓
+Model Development
+   ↓
+Model Evaluation
+   ↓
+Model Selection
+   ↓
+Model Persistence
+   ↓
+Prediction Pipeline
+   ↓
+Interactive Application
+```
+
+The current model is a candidate model for demonstration purposes and requires additional modelling, validation, and deployment work before it could be considered for real-world financial decision-making.
