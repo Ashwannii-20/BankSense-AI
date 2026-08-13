@@ -36,19 +36,27 @@ with col1:
     )
 
     annual_income = st.number_input(
-        "Annual Income",
-        min_value=0.0,
-        value=75000.0,
-        step=1000.0,
-    )
+    "Annual Income",
+    min_value=0.0,
+    value=75000.0,
+    step=1000.0,
+)
+
+    st.caption(
+    "Enter annual income using the currency applicable to the selected country."
+)
 
     customer_tenure_years = st.number_input(
-        "Customer Tenure (Years)",
-        min_value=0,
-        max_value=11,
-        value=6,
-        step=1,
-    )
+    "Customer Tenure (Years)",
+    min_value=0,
+    max_value=11,
+    value=6,
+    step=1,
+)
+
+    st.caption(
+    "Maximum supported customer tenure: 11 years."
+)
 
     gender = st.selectbox(
         "Gender",
