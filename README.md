@@ -87,3 +87,174 @@ Model Comparison
 Final Model Selection
       ↓
 Post-Selection Validation
+```
+
+---
+
+## Model Development & Evaluation
+
+Two classification approaches were evaluated:
+
+- Logistic Regression
+- Random Forest
+
+Because the target variable is highly imbalanced, model performance was assessed using metrics beyond accuracy, with particular attention to minority-class detection.
+
+The evaluation focused on:
+
+- Precision
+- Recall
+- F1 Score
+- ROC-AUC
+
+---
+
+## Model Comparison
+
+| Model | Accuracy | Precision | Recall | F1 Score | ROC-AUC |
+|---|---:|---:|---:|---:|---:|
+| Baseline Logistic Regression with Engineered Features | 0.5590 | 0.0792 | 0.5072 | 0.1370 | 0.5601 |
+| Improved Logistic Regression | 0.5560 | 0.0787 | 0.5072 | 0.1362 | 0.5600 |
+| Baseline Random Forest | 0.9260 | 0.0000 | 0.0000 | 0.0000 | 0.5423 |
+| Tuned Random Forest | 0.7290 | 0.1055 | 0.3913 | 0.1662 | 0.5710 |
+
+The baseline Random Forest achieved high accuracy but failed to identify any high-risk customers, resulting in zero recall and zero F1 score.
+
+The tuned Random Forest improved minority-class detection and achieved the highest F1 score and ROC-AUC among the evaluated models.
+
+---
+
+## Final Model Selection
+
+The **Tuned Random Forest** was selected as the strongest candidate among the evaluated models because it achieved:
+
+- **F1 Score:** 0.1662
+- **ROC-AUC:** 0.5710
+
+The model improved high-risk customer detection compared with the baseline Random Forest.
+
+However, its relatively low precision and ROC-AUC indicate that overall predictive performance remains limited. Therefore, the model should **not be considered production-ready** without further improvement and validation.
+
+Because the target variable is highly imbalanced, accuracy was not used as the primary criterion for model selection.
+
+---
+
+## Key Findings
+
+- The dataset contains a significant class imbalance, with high-risk customers representing **6.92%** of observations.
+- Accuracy alone can therefore provide a misleading assessment of model performance.
+- The credit-score-based target mapping was validated successfully.
+- The final feature matrix contains **42 predictor variables**.
+- The training and test datasets contain **4,000 and 1,000 observations**, respectively.
+- The training and test sets contain the same feature structure.
+- Train/test index validation confirmed **no overlapping observations**.
+- Post-selection validation confirmed that the final feature matrix contains **no missing values**.
+- The results indicate that further modelling improvements are required before practical deployment.
+
+---
+
+## Limitations
+
+The current model has several limitations:
+
+- Limited predictive performance based on the current F1 and ROC-AUC results.
+- Strong class imbalance between low-risk and high-risk customers.
+- The current feature set may not contain sufficient information to reliably distinguish high-risk customers.
+- Further validation is required before the model could be considered suitable for real-world banking decisions.
+- The project should not be interpreted as a production credit-risk system.
+
+---
+
+## Future Improvements
+
+Potential next steps include:
+
+- Additional feature engineering
+- More detailed analysis of minority-class behaviour
+- Further hyperparameter optimization
+- Probability-threshold optimization
+- Additional imbalance-handling techniques
+- Evaluation of additional classification algorithms
+- Cross-validation and robustness testing
+- Feature importance and model interpretability analysis
+- Probability calibration
+- Evaluation on an independent external dataset
+
+---
+
+## Technology Stack
+
+- **Python**
+- **Pandas**
+- **NumPy**
+- **Scikit-learn**
+- **Jupyter Notebook**
+- **uv**
+- **Git & GitHub**
+
+---
+
+## Project Structure
+
+```text
+BankSense-AI/
+│
+├── data/
+│   ├── raw/
+│   ├── processed/
+│   └── external/
+│
+├── notebooks/
+│   └── 01_banksense_risk_analysis.ipynb
+│
+├── src/
+│   └── banksense_ai/
+│       └── __init__.py
+│
+├── .gitignore
+├── .python-version
+├── README.md
+├── pyproject.toml
+└── uv.lock
+```
+
+---
+
+## How to Run
+
+Clone the repository:
+
+```bash
+git clone https://github.com/Ashwannii-20/BankSense-AI.git
+cd BankSense-AI
+```
+
+Install the project environment and dependencies using `uv`:
+
+```bash
+uv sync
+```
+
+Launch Jupyter:
+
+```bash
+uv run jupyter notebook
+```
+
+Then open:
+
+```text
+notebooks/01_banksense_risk_analysis.ipynb
+```
+
+> **Note:** The project dataset is not included in the public repository. The `.gitignore` configuration excludes CSV data files from version control.
+
+---
+
+## Project Status
+
+**Completed:** Initial data profiling, data cleaning, feature engineering, exploratory analysis, model development, model evaluation, model comparison, final model selection, and post-selection validation.
+
+**Current status:** The Tuned Random Forest is the strongest candidate among the evaluated models but is **not production-ready** due to limited predictive performance.
+
+**Next stage:** Improve predictive performance, validate robustness, and develop a deployable application.
