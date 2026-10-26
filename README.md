@@ -4,7 +4,7 @@
 **Try the deployed application:**  
 https://ashwannii-20-banksense-ai-app-gpfk.tk.streamlit.app/
 
-The application allows users to enter customer information and receive a machine-learning-based high-risk probability estimate.
+The application allows users to enter customer information and receive a machine-learning-based high-risk probability estimate. The Streamlit demo is available online for portfolio demonstration; it is not a production banking service.
 
 ## Banking Customer Risk Analysis & Machine Learning
 
@@ -222,7 +222,7 @@ High-Risk Probability: 49.47%
 - The Tuned Random Forest achieved the strongest F1 Score and ROC-AUC among the evaluated models.
 - The model was successfully saved as a reusable Joblib artifact.
 - A reusable preprocessing and prediction pipeline was developed.
-- A Streamlit application was developed to provide an interactive interface for model predictions.
+- A Streamlit application was developed and deployed to provide an interactive interface for model predictions in a portfolio demonstration.
 - The results indicate that further modelling improvements are required before practical deployment.
 
 ---
@@ -236,7 +236,7 @@ The current model has several limitations:
 - The current feature set may not contain sufficient information to reliably distinguish high-risk customers.
 - Further validation is required before the model could be considered suitable for real-world banking decisions.
 - The project should not be interpreted as a production credit-risk system.
-- The Streamlit application is currently intended for local demonstration and has not been deployed as a production service.
+- The Streamlit application is deployed for portfolio demonstration, but the project is not a production credit-risk service.
 
 ---
 
@@ -254,7 +254,7 @@ Potential next steps include:
 - Feature importance and model interpretability analysis
 - Probability calibration
 - Evaluation on an independent external dataset
-- Deployment and hosting of the Streamlit application
+- Deployment hardening, monitoring, and operational reliability
 
 ---
 
@@ -379,4 +379,4 @@ Prediction Pipeline
 Interactive Application
 ```
 
-The current model is a candidate model for demonstration purposes and requires additional modelling, validation, and deployment work before it could be considered for real-world financial decision-making.
+The current model is a candidate model for demonstration purposes and requires additional modelling, validation, fairness assessment, and operational hardening before any consideration of real-world financial decision-making.
