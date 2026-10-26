@@ -2,7 +2,7 @@
 ## 🚀 Live Demo
 
 **Try the deployed application:**  
-https://ashwannii-20-banksense-ai-app-gpfk.tk.streamlit.app/
+https://ashwannii-20-banksense-ai-app-gpfktk.streamlit.app/
 
 The application allows users to enter customer information and receive a machine-learning-based high-risk probability estimate. The Streamlit demo is available online for portfolio demonstration; it is not a production banking service.
 
